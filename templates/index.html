@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mock Rest Api </title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 50px;
+        }
+
+        #result {
+            width: 300px;
+            min-height: 300px;
+            border: lightgray solid 1px;
+            box-sizing: content-box;
+            margin: 10px;padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <center>
+        <h3>Rest Api Mock</h3>
+        <A HREF="./api/v1/version" target="_blank">Version</A>
+        <br /><br />
+        <A HREF="./api/v1/item/1" target="_blank">Get Sample Data</A>
+        <br />
+ 
+
+        <br />
+        <br />
+        <button id="triggerData">Trigger Call</button>
+
+        <div id="result"></div>
+
+    </center>
+    <script>
+        const triggerDataBtn = document.querySelector("#triggerData");
+        const result = document.querySelector("#result");
+
+        const getData = function () {
+            result.innerText = "Loading....";
+
+            fetch("./api/v1/version", {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+                //,body: JSON.stringify({})
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    result.innerText = JSON.stringify(data, null, 2);
+                })
+                .catch((error) => console.log(error));
+        };
+
+        triggerDataBtn.addEventListener("click", getData);
+    </script>
+
+</body>
+
+</html>
